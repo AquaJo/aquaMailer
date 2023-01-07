@@ -143,7 +143,8 @@ app.listen(port, () => {
 let emailTemplateHeroImageUrls = [
   'https://source.unsplash.com/random/?futuristic',
   'https://source.unsplash.com/random/?nature',
-  'https://source.unsplash.com/random/?abstract'
+  'https://source.unsplash.com/random/?abstract',
+  'https://source.unsplash.com/random/?universe'
 ]; // /themes
 app.post("/submit", cors(corsOptions), (req, res) => {
   let warnings = [];
@@ -194,7 +195,7 @@ app.post("/submit", cors(corsOptions), (req, res) => {
         //choose random background image theme and random parameter for variation
         //let randIndexImg = getRandomInt(emailTemplateHeroImageUrls.length); used before chooseRa
         let randIndexImgParameter = getRandomInt(976464);
-        let theme = emailTemplateHeroImageUrls.chooseRandom([48, 30, 22]);
+        let theme = emailTemplateHeroImageUrls.chooseRandom([45, 26, 19,10]); // doesn't need to be 100 can be 'anything' positive
         let imgRedirectUrl = (theme + "&" + randIndexImgParameter);
         // get final url from redirecting unsplash url; not sure if needed/is a solution because worked also without BUT sometimes didn't ...
         fetch(imgRedirectUrl).then(function(response) {
