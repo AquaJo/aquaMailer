@@ -6,6 +6,9 @@ const port = 3000;
 var cors = require('cors');
 const ejs = require('ejs');
 var path = require('path');
+var Jimp = require('jimp');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 // SOME "work"-FUNCTIONS
 Array.prototype.chooseRandom = function(probabilities) {
@@ -263,6 +266,15 @@ app.post("/submit", cors(corsOptions), (req, res) => {
 
 
 
+const myOAuth2Client = new OAuth2(
+process.env.OAUTH_CLIENTID,
+process.env.OAUTH_CLIENT_SECRET,
+"https://developers.google.com/oauthplayground"
+)
+myOAuth2Client.setCredentials({
+refresh_token: process.env.OAUTH_REFRESH_TOKEN2
+});
+const myAccessToken = myOAuth2Client.getAccessToken()
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -272,14 +284,18 @@ let transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASSWORD,
     clientId: process.env.OAUTH_CLIENTID,
     clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN2,
+    accessToken: myAccessToken
   }
 });
 
-
+var mailList = [
+  process.env.TO_MAIL
+  //process.env.testmail
+];
 let mailOptions = {
   from: process.env.FROM_MAIL,
-  to: process.env.TO_MAIL,
+  to: mailList,
   subject: 'new homepage-msg',
   html: htmlData
 };
