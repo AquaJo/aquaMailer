@@ -112,7 +112,7 @@ client.login(process.env.DC_TOKEN) // Your bot token must be secured, read these
 Your bot can now be customised on the developer portal. You must not share your bot token or anyone will be able to access it with full permissions.
 */
 
-/*
+
 const { Client, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 
 const client = new Client({
@@ -160,4 +160,3 @@ client.on('rateLimit', (rateLimitInfo) => {
 });
 
 client.login('MTA2NTM0NDE3NDg2NzYyMzkzNg.GLdelF.npC8nImuFjQBwoefH0vJB75OnS8pXVo9oe774g');
-*/

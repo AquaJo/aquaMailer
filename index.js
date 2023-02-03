@@ -1,3 +1,6 @@
+const configFirst = require("./config.js");
+const config = configFirst.config;
+
 var express = require('express');
 const fetch = require("isomorphic-fetch");
 var app = express();
@@ -6,12 +9,9 @@ const port = 3000;
 var cors = require('cors');
 const ejs = require('ejs');
 var path = require('path');
-var Jimp = require('jimp');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
+
 
 const discordService = require('./discording.js');
-
 
 // SOME "work"-FUNCTIONS
 Array.prototype.chooseRandom = function(probabilities) {
@@ -267,66 +267,28 @@ app.post("/submit", cors(corsOptions), (req, res) => {
 });
 
 
-
-/*
-const myOAuth2Client = new OAuth2(
-process.env.OAUTH_CLIENTID,
-process.env.OAUTH_CLIENT_SECRET,
-"https://developers.google.com/oauthplayground"
-)
-myOAuth2Client.setCredentials({
-refresh_token: process.env.OAUTH_REFRESH_TOKEN2
-});
-const myAccessToken = myOAuth2Client.getAccessToken()
-
-let transporter = nodemailer.createTransport({ // gmail also working in itself but token expires and couldn't find a nice way to use oauth after expiring automatically yet. If you want to use a gmail address you can also set pass and user tags, but some settings in google safety settings have to be done i think, search it up ...
-  service: 'gmail',
-  host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-  auth: {
-    type: 'OAuth2',
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-    clientId: process.env.OAUTH_CLIENTID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN2,
-    //accessToken: myAccessToken
-  }
-});
-*/
-/*
-var transporter = nodemailer.createTransport({ // ethereal for testing only
-  host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: process.env.ETHEREAL_MAIL,
-        pass: process.env.ETHEREAL_PASSWORD
-    }
-});
-*/
-
-let transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',                  // hostname
-    service: 'outlook',                             // service name
+var transporter = nodemailer.createTransport({    
+    host: "mail.mail.ee",  
+    secure: true,
     secureConnection: false,
     tls: {
-        ciphers: 'SSLv3'                            // tls version
+        ciphers:'SSLv3'
     },
-    port: 587,                                      // port
+    requireTLS:true,
+    port: 465,
+    debug: true,
     auth: {
-        user: process.env.MAIL_USERNAME_OUTLOOK,
-        pass: process.env.MAIL_PASSWORD_OUTLOOK
+        user: "aqfws@mail.ee",
+        pass: process.env.MAIL_PASSWORD 
     }
 });
-
 
 var mailList = [
   process.env.TO_MAIL
   //process.env.testmail
 ];
 let mailOptions = {
-  from: process.env.FROM_MAIL_OUTLOOK,
+  from: process.env.FROM_MAIL,
   to: mailList,
   subject: 'new homepage-msg',
   html: htmlData
