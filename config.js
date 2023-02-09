@@ -8,12 +8,14 @@ module.exports = {
   // useService params use boolean (true/false). If you set it false, config class inside specific parent class wont take action 
   config: {
     server: {
+      /* NEEDED */
+
       /* OPTIONAL */
       useService: true,
       config: {
         //set max calls per user for period of time
         requestPeriod: 15 * 60 * 1000, // --> 15 minutes
-        maxRequestInPeriod: 20
+        maxRequestsInPeriod: 20
       }
     },
 
@@ -21,34 +23,30 @@ module.exports = {
       useService: true,
       config: {
 
-        needed: {
-          transporterObject: {
-            host: process.env.MAIL_HOST /* eg. mail.mail.ee, ... different scheme for different services */,
-            secure: true,
-            secureConnection: false,
-            tls: {
-              ciphers: 'SSLv3'
+        main: {
+          transporterObjects: [
+            {
+              host: "smtp.zoho.eu",
+              secure: true,
+              port: 465,
+              auth: {
+                user: "aqhfws@zohomail.eu",
+                pass: process.env.PW_zoho,
+              }
             },
-            requireTLS: true,
-            port: 465,
-            debug: true,
-            auth: {
-              user: process.env.MAIL_USERNAME, // Defines email you want to use as sender-service. Keep in mind it must be a supported service working with nodemailer and services like outlook could block you. Google requires 2FA. I can recommend someUser@mail.ee with online sms verification
-              pass: process.env.MAIL_PASSWORD, // Defines the password of your mail account/ smtp access. If you use mail.ee (instruction on github) or probably also some other services you need to use a specific smtp-related password.
-            }
-          }, // set your very individual nodemailer-transporter for using SMTP on your email-account and finally using this message-forwarder
-          fromMail: process.env.FROM_MAIL, // Defines an additional name for the sender, keep it "" will set user as main sender - information. Don't use nodemailers scheme like: newName <email@provider.domain>, in this case just write newName
+            {
+              host: "mail.mail.ee", // no need to set host or port etc.
+              auth: {
+                user: 'aqfws@mail.ee',
+                pass: process.env.PW_mailee
+              } // set your very individual nodemailer-transporter for using SMTP on your email-account and finally using this message-forwarder
+            }, // paste multiple smtp transporter instances to create fallbacks in case objects of smaller indices are not working
+          ],
+          fromMail: "forwarding-service", // Defines an additional name for the sender, keep it "" will set user as main sender - information. Don't use nodemailers scheme like: newName <email@provider.domain>, in this case just write newName
           receiverMails: [ // Where do the messages are supposted to be mailed to?
             process.env.TO_MAIL
             //,process.env.secondMail
           ]
-        },
-
-        recaptcha: {
-          useService: true,
-          config: {
-            recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY
-          }
         },
 
         receiverHTML: {
@@ -71,6 +69,10 @@ module.exports = {
 
           buttonLeft: ["replit.com", "https://replit.com/~"], // set button text (first item) and button href (second item), if no button wanted set one of the items to null without quotation
           buttonRight: ["aquajo.com", "https://aquajo.me/"] // same for the right button
+        },
+
+        other: {
+          bumpSMTPWithMail: ["mi19hadnh912nda@byom.de", "Hi, do you like this number?: " + Math.floor(Math.random() * 912390), 43200] //  bump your smtp-provider with messages over time to keep it alive. 1. param: mail to send to, 2. param msg, 3. param bump-intervall in minutes. Dont want/ need to use it? --> Set one param to null without quotation
         }
       }
     },
@@ -85,6 +87,13 @@ module.exports = {
         dmMessageInfo: "You got a new message from your homepage.", // info-message from bot on new message from homepage
         sendMsgAfterwards: true // set to false if you don't want to reveal message in discord dm
       }
-    }
+    },
+
+    recaptcha: {
+      useService: true,
+      config: {
+        recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY
+      }
+    },
   }
 }

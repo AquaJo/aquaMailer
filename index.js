@@ -108,22 +108,21 @@ Array.prototype.chooseRandom = function(probabilities) {
 }; // returns random item from given array with given probabilities
 // "work"-FUNCTIONS end
 
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 let htmlData; // if a template for failcreation wanted ... standard input
-// RATE LIMITING FOR WHOLE PROJECT PER USER
-const rateLimit = require('express-rate-limit');
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
-
-app.use("/public", express.static(path.join(__dirname, 'public')));
-// Apply the rate limiting middleware to all requests
-app.use(limiter);
-// RATE LIMITING 'END'
+if (config.server.useService) {
+  // RATE LIMITING FOR WHOLE PROJECT PER USER
+  const rateLimit = require('express-rate-limit');
+  const limiter = rateLimit({
+    windowMs: config.server.config.requestPeriod, // 15 minutes
+    max: config.server.config.maxRequestsInPeriod, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  });
+  // Apply the rate limiting middleware to all requests
+  app.use(limiter);
+}
 
 // To accept HTML form data
 app.use(express.urlencoded({ extended: false }));
@@ -146,93 +145,36 @@ app.listen(port, () => {
 })
 
 
+let heroSettings = config.email.config.receiverHTML.backgroundTopicsAndPossibilities;
+for (let i = 0; i < heroSettings; ++i) {
+  emailTemplateHeroImageUrls.push()
+}
 let emailTemplateHeroImageUrls = [
   'https://source.unsplash.com/random/?futuristic',
   'https://source.unsplash.com/random/?nature',
   'https://source.unsplash.com/random/?abstract',
   'https://source.unsplash.com/random/?universe'
 ]; // /themes
-app.post("/submit", cors(corsOptions), (req, res) => {
+app.post("/submit", cors(corsOptions), async (req, res) => {
+  let successfulRecaptcha;
   let warnings = [];
   console.log("------------");
   console.log(req.get('origin'));
   console.log("received submit");
-  // getting site key from client side
-  const response_key = req.body["g-recaptcha-response"];
-  // Put secret key here, which we get from google console
-  const secret_key = process.env.RECAPTCHA_SECRET_KEY;
+  if (config.recaptcha.useService) {
 
-  // Hitting POST request to the URL, Google will
-  // respond with success or error scenario.
-  const url =
-    `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
+    // getting site key from client side
+    const response_key = req.body["g-recaptcha-response"];
+    // Put secret key here, which we get from google console
+    const secret_key = process.env.RECAPTCHA_SECRET_KEY;
 
-
-
-  let msg;
-  let from;
-  let fromMail;
-  // Making POST request to verify captcha
-  fetch(url, {
-    method: "post",
-  })
-    .then((response) => response.json())
-    .then((google_response) => {
-      // google_response is the object return by
-      // google as a response
-      if (google_response.success == true) {
-        //   if captcha is verified
-        console.log("submit recaptcha successful");
-
-        checkLenghts();
-        let lengthTestRes = testFailEnd();
-        if (lengthTestRes !== true) return lengthTestRes;
-
-        mailOptions.subject = from.length > 0 ? (from + (fromMail.length > 0 ? " / " : "")) : "";
-        mailOptions.subject += fromMail.length > 0 ? fromMail : "";
-        if (mailOptions.subject === "") {
-          mailOptions.subject = "no name nor mail";
-        }
-
-        //mailOptions.text = msg;
-        function getRandomInt(max) {
-          return Math.floor(Math.random() * max);
-        }
-        //choose random background image theme and random parameter for variation
-        //let randIndexImg = getRandomInt(emailTemplateHeroImageUrls.length); used before chooseRa
-        let randIndexImgParameter = getRandomInt(976464);
-        let theme = emailTemplateHeroImageUrls.chooseRandom([45, 26, 19,10]); // doesn't need to be 100 can be 'anything' positive
-        let imgRedirectUrl = (theme + "&" + randIndexImgParameter);
-        // get final url from redirecting unsplash url; not sure if needed/is a solution because worked also without BUT sometimes didn't ...
-        fetch(imgRedirectUrl).then(function(response) {
-          let finalImgUrl = response.url;
-          console.log("using img-theme: " + theme);
-          console.log("using backgroundimage: " + finalImgUrl);
-          // render html and send
-          ejs.renderFile(__dirname + '/emailTemplate/index.ejs', { ejs_Message: msg, ejs_From: from, ejs_FromMail: fromMail, ejs_BackgroundImg: finalImgUrl }, (err, data) => {
-            //console.log(data);
-            mailOptions.html = data;
-            transporter.sendMail(mailOptions, function(err, datab) {
-              if (err) {
-                console.log("Email-Error " + err);
-                warnings.push("Nodemailer-Error occured.")
-                testFailEnd();
-              } else {
-                console.log("Email sent successfully");
-              }
-              return res.send({ response: "Successful" });
-            });
-          });
-        });
-      } else {
-        // if captcha is not verified
-        warnings.push("Recaptcha-validation failed.")
-        checkLenghts(); // just to include all possible problems for the user ... could also check them always in the beginning so Recaptcha call could be avoided, ...
-        let lengthTestRes = testFailEnd();
-        if (lengthTestRes !== true) return lengthTestRes;
-      }
-    })
-    .catch((error) => {
+    // Hitting POST request to the URL, Google will
+    // respond with success or error scenario.
+    const url =
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${response_key}`;
+    const response = await fetch(url, {
+      method: "post",
+    }).catch((error) => {
       // Some error while verify captcha
       console.log("submit recaptcha error: " + error);
       warnings.push("Recaptcha-validation failed. Serverside catch happened.")
@@ -241,6 +183,90 @@ app.post("/submit", cors(corsOptions), (req, res) => {
       if (lengthTestRes !== true) return lengthTestRes;
       //return res.json({ error });
     });
+    const responseData = await response.json();
+    successfulRecaptcha = responseData.success;
+  } else {
+    successfulRecaptcha = true;
+  }
+
+
+  let msg;
+  let from;
+  let fromMail;
+  // Making POST request to verify captcha
+  if (successfulRecaptcha) {
+    //   if captcha is verified
+    console.log("submit recaptcha successful or not needed");
+
+    checkLenghts();
+    let lengthTestRes = testFailEnd();
+    if (lengthTestRes !== true) return lengthTestRes;
+
+
+    if (config.email.useService) { // if email sending wanted now do mailing stuff
+
+      mailOptions.subject = from.length > 0 ? (from + (fromMail.length > 0 ? " / " : "")) : "";
+      mailOptions.subject += fromMail.length > 0 ? fromMail : "";
+      if (mailOptions.subject === "") {
+        mailOptions.subject = "no name nor mail";
+      }
+
+      //mailOptions.text = msg
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+      //choose random background image theme and random parameter for variation
+      //let randIndexImg = getRandomInt(emailTemplateHeroImageUrls.length); used before chooseRa
+      let randIndexImgParameter = getRandomInt(976464);
+      let theme = emailTemplateHeroImageUrls.chooseRandom([45, 26, 19, 10]); // doesn't need to be 100 can be 'anything' positive
+      let imgRedirectUrl = (theme + "&" + randIndexImgParameter);
+      // get final url from redirecting unsplash url; not sure if needed/is a solution because worked also without BUT sometimes didn't ...
+      fetch(imgRedirectUrl).then(function(response) {
+        let finalImgUrl = response.url;
+        console.log("using img-theme: " + theme);
+        console.log("using backgroundimage: " + finalImgUrl);
+        // render html and send
+        ejs.renderFile(__dirname + '/emailTemplate/index.ejs', { ejs_Message: msg, ejs_From: from, ejs_FromMail: fromMail, ejs_BackgroundImg: finalImgUrl }, async (err, data) => {
+          //console.log(data);
+          mailOptions.html = data;
+         
+      
+          while (currentTransporter < config.email.config.main.transporterObjects.length /*&& !success*/) {
+              setTransport(currentTransporter);
+              refreshMailOptions(currentTransporter);
+            let promise = await new Promise((resolve,reject)=>{
+              transporter.sendMail(mailOptions, function(err, datab) {
+                if (err) {
+                  console.log("got smtp error on instance "+currentTransporter+": " + err);
+                  resolve(false);
+                } else {
+                  console.log("succeeded smtp transfer on instance "+ currentTransporter);
+                  resolve(true);
+                }
+              })
+            })
+            if (promise) {
+              return res.send({ response: "Successful" });
+            } else {
+              //return res.send({response: "Error. Couldn`t use stmp relay service."})
+            }
+            //
+            currentTransporter++;
+          }
+          return res.send({response: "SMTPServicesError"})
+        });
+      });
+    }
+
+
+
+  } else {
+    // if captcha is not verified
+    warnings.push("Recaptcha-validation failed.")
+    checkLenghts(); // just to include all possible problems for the user ... could also check them always in the beginning so Recaptcha call could be avoided, ...
+    let lengthTestRes = testFailEnd();
+    if (lengthTestRes !== true) return lengthTestRes;
+  }
 
   function checkLenghts() {
     msg = req.body.message;
@@ -266,30 +292,24 @@ app.post("/submit", cors(corsOptions), (req, res) => {
   }
 });
 
+let currentTransporter = 0;
+var transporter;
+setTransport(0);
+function setTransport(index) {
+  transporter = nodemailer.createTransport(
+    config.email.config.main.transporterObjects[index] // try first item object at first, if fallback, transporter is changed in process every time --> recommended to change first object in this case
+  );
+}
 
-var transporter = nodemailer.createTransport({    
-    host: "mail.mail.ee",  
-    secure: true,
-    secureConnection: false,
-    tls: {
-        ciphers:'SSLv3'
-    },
-    requireTLS:true,
-    port: 465,
-    debug: true,
-    auth: {
-        user: "aqfws@mail.ee",
-        pass: process.env.MAIL_PASSWORD 
-    }
-});
 
-var mailList = [
-  process.env.TO_MAIL
-  //process.env.testmail
-];
-let mailOptions = {
-  from: process.env.FROM_MAIL,
-  to: mailList,
+var mailOptions;
+function refreshMailOptions(index) {
+  mailOptions.from = config.email.config.main.fromMail + " <" + config.email.config.main.transporterObjects[index].auth.user + ">";
+}
+mailOptions = {
+  from: config.email.config.main.fromMail + " <" + config.email.config.main.transporterObjects[0].auth.user + ">",
+  to: config.email.config.main.receiverMails,
   subject: 'new homepage-msg',
   html: htmlData
 };
+
