@@ -3,6 +3,8 @@
 (not necessarily needed to set All parameters to private ones)
 for tutorials, also how to set these params, check out my github
 */
+let gifArray = process.env.gifs.split("'").filter(function(index) { return (index % 2 === 1) }); // REMOVE THIS AND REMOVE FROM RECEIVERHTML OR USE ANOTHER ARRAY AS GIF / IMG LINK ARRAY HERE 
+
 
 module.exports = {
   // useService params use boolean (true/false). If you set it false, config class inside specific parent class wont take action 
@@ -26,25 +28,25 @@ module.exports = {
         main: {
           transporterObjects: [
             {
-              host: "smtp.zoho.eu",
+              host: "smtp.zoho.eu", // set your very individual nodemailer-transporter for using SMTP on your email-account and finally using this message-forwarder
               secure: true,
               port: 465,
               auth: {
-                user: "aqhfws@zohomail.eu",
+                user: process.env.USER_zoho, // user@zohomail.eu
                 pass: process.env.PW_zoho,
               }
-            },
-            {
-              host: "mail.mail.ee", // no need to set host or port etc.
-              auth: {
-                user: 'aqfws@mail.ee',
-                pass: process.env.PW_mailee
-              } // set your very individual nodemailer-transporter for using SMTP on your email-account and finally using this message-forwarder
             }, // paste multiple smtp transporter instances to create fallbacks in case objects of smaller indices are not working
+            {
+              host: "mail.mail.ee",
+              auth: {
+                user: process.env.USER_mailee, // user@mail.ee 'aqfws@mail.ee',
+                pass: process.env.PW_mailee
+              }
+            }
           ],
           fromMail: "forwarding-service", // Defines an additional name for the sender, keep it "" will set user as main sender - information. Don't use nodemailers scheme like: newName <email@provider.domain>, in this case just write newName
           receiverMails: [ // Where do the messages are supposted to be mailed to?
-            process.env.TO_MAIL
+            process.env.TO_MAIL,
             //,process.env.secondMail
           ]
         },
@@ -59,7 +61,7 @@ module.exports = {
             use your own image/gif links by using another array inside first index of selector-arrays
             (for giphy-gif link scraping feel free visiting my other project: gifGrabber - https://github.com/AquaJo/GifGrabber // direct site release - https://aquajo.me/GifGrabber/)
             */
-            [['https://site.com/image1.png', 'https://site.com/image2.png'], 0]
+            [gifArray, 900]
           ], // set random images from themes from unsplash || image/ gif links   with specific possibilites for mail cover
 
           // some HTML-Manipulation-Options from top to bottom
@@ -97,3 +99,7 @@ module.exports = {
     },
   }
 }
+
+
+
+

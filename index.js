@@ -21,7 +21,7 @@ Array.prototype.chooseRandom = function(probabilities) {
   }
   // Function to return gcd of a and b
   function gcd(a, b) {
-    if (a == 0)
+    if (a === 0)
       return b;
     return gcd(b % a, a);
   }
@@ -32,7 +32,7 @@ Array.prototype.chooseRandom = function(probabilities) {
     for (let i = 1; i < n; i++) {
       result = gcd(arr[i], result);
 
-      if (result == 1) {
+      if (result === 1) {
         return 1;
       }
     }
@@ -146,15 +146,21 @@ app.listen(port, () => {
 
 
 let heroSettings = config.email.config.receiverHTML.backgroundTopicsAndPossibilities;
-for (let i = 0; i < heroSettings; ++i) {
-  emailTemplateHeroImageUrls.push()
+emailTemplateHeroImageUrls = [];
+let probabilitiesHeros = [];
+for (let i = 0; i < heroSettings.length; ++i) {
+  emailTemplateHeroImageUrls.push(heroSettings[i][0]);
+  probabilitiesHeros.push(heroSettings[i][1]);
 }
+
+/*
 let emailTemplateHeroImageUrls = [
   'https://source.unsplash.com/random/?futuristic',
   'https://source.unsplash.com/random/?nature',
   'https://source.unsplash.com/random/?abstract',
   'https://source.unsplash.com/random/?universe'
 ]; // /themes
+*/
 app.post("/submit", cors(corsOptions), async (req, res) => {
   let successfulRecaptcha;
   let warnings = [];
@@ -217,30 +223,36 @@ app.post("/submit", cors(corsOptions), async (req, res) => {
       }
       //choose random background image theme and random parameter for variation
       //let randIndexImg = getRandomInt(emailTemplateHeroImageUrls.length); used before chooseRa
-      let randIndexImgParameter = getRandomInt(976464);
-      let theme = emailTemplateHeroImageUrls.chooseRandom([45, 26, 19, 10]); // doesn't need to be 100 can be 'anything' positive
-      let imgRedirectUrl = (theme + "&" + randIndexImgParameter);
+      let theme = emailTemplateHeroImageUrls.chooseRandom(probabilitiesHeros); // doesn't need to be 100 can be 'anything' positive
+      let imgRedirectUrl = "";
+      if (Array.isArray(theme)) {
+        imgRedirectUrl = theme[Math.floor(Math.random() * theme.length)];
+      } else {
+        let randIndexImgParameter = getRandomInt(976464);
+        imgRedirectUrl = (theme + "&" + randIndexImgParameter);
+      }
+
       // get final url from redirecting unsplash url; not sure if needed/is a solution because worked also without BUT sometimes didn't ...
       fetch(imgRedirectUrl).then(function(response) {
         let finalImgUrl = response.url;
-        console.log("using img-theme: " + theme);
+        console.log("using img-theme: " + (Array.isArray(theme) ? "type array, length of " + theme.length : theme));
         console.log("using backgroundimage: " + finalImgUrl);
         // render html and send
         ejs.renderFile(__dirname + '/emailTemplate/index.ejs', { ejs_Message: msg, ejs_From: from, ejs_FromMail: fromMail, ejs_BackgroundImg: finalImgUrl }, async (err, data) => {
           //console.log(data);
           mailOptions.html = data;
-         
-      
+
+
           while (currentTransporter < config.email.config.main.transporterObjects.length /*&& !success*/) {
-              setTransport(currentTransporter);
-              refreshMailOptions(currentTransporter);
-            let promise = await new Promise((resolve,reject)=>{
+            setTransport(currentTransporter);
+            refreshMailOptions(currentTransporter);
+            let promise = await new Promise((resolve, reject) => {
               transporter.sendMail(mailOptions, function(err, datab) {
                 if (err) {
-                  console.log("got smtp error on instance "+currentTransporter+": " + err);
+                  console.log("got smtp error on instance " + currentTransporter + ": " + err);
                   resolve(false);
                 } else {
-                  console.log("succeeded smtp transfer on instance "+ currentTransporter);
+                  console.log("succeeded smtp transfer on instance " + currentTransporter);
                   resolve(true);
                 }
               })
@@ -253,7 +265,7 @@ app.post("/submit", cors(corsOptions), async (req, res) => {
             //
             currentTransporter++;
           }
-          return res.send({response: "SMTPServicesError"})
+          return res.send({ response: "SMTPServicesError" })
         });
       });
     }
