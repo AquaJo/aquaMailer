@@ -3,7 +3,7 @@
 (not necessarily needed to set All parameters to private ones)
 for tutorials, also how to set these params, check out my github
 */
-let gifArray = process.env.gifs.split("'").filter(function(index) { return (index % 2 === 1) }); // REMOVE THIS AND REMOVE FROM RECEIVERHTML OR USE ANOTHER ARRAY AS GIF / IMG LINK ARRAY HERE 
+let gifArray = process.env.gifs.split("'").filter(function(element,index) { return (index % 2 === 1) }); // REMOVE THIS AND REMOVE FROM RECEIVERHTML OR USE ANOTHER ARRAY AS GIF / IMG LINK ARRAY HERE 
 
 
 module.exports = {
