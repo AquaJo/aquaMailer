@@ -3,15 +3,13 @@
 (not necessarily needed to set All parameters to private ones)
 for tutorials, also how to set these params, check out my github
 */
-let gifArray = process.env.gifs.split("'").filter(function(element,index) { return (index % 2 === 1) }); // REMOVE THIS AND REMOVE FROM RECEIVERHTML OR USE ANOTHER ARRAY AS GIF / IMG LINK ARRAY HERE 
-
+let gifArray = process.env.gifs.split("'").filter(function(element, index) { return (index % 2 === 1) }); // REMOVE THIS AND REMOVE FROM RECEIVERHTML OR USE ANOTHER ARRAY AS GIF / IMG LINK ARRAY HERE 
+let gifArray2 = process.env.gifs2.split("'").filter(function(element, index) { return (index % 2 === 1) });
 
 module.exports = {
   // useService params use boolean (true/false). If you set it false, config class inside specific parent class wont take action 
   config: {
     server: {
-      /* NEEDED */
-
       /* OPTIONAL */
       useService: true,
       config: {
@@ -33,7 +31,7 @@ module.exports = {
               port: 465,
               auth: {
                 user: process.env.USER_zoho, // user@zohomail.eu
-                pass: process.env.PW_zoho,
+                pass: process.env.PW_zoho
               }
             }, // paste multiple smtp transporter instances to create fallbacks in case objects of smaller indices are not working
             {
@@ -44,7 +42,7 @@ module.exports = {
               }
             }
           ],
-          fromMail: "forwarding-service", // Defines an additional name for the sender, keep it "" will set user as main sender - information. Don't use nodemailers scheme like: newName <email@provider.domain>, in this case just write newName
+          fromTag: "forwarding-service", // Defines an additional name for the sender, keep it "" will set user as main sender - information. Don't use nodemailers scheme like: newName <email@provider.domain>, in this case just write newName
           receiverMails: [ // Where do the messages are supposted to be mailed to?
             process.env.TO_MAIL,
             //,process.env.secondMail
@@ -61,21 +59,36 @@ module.exports = {
             use your own image/gif links by using another array inside first index of selector-arrays
             (for giphy-gif link scraping feel free visiting my other project: gifGrabber - https://github.com/AquaJo/GifGrabber // direct site release - https://aquajo.me/GifGrabber/)
             */
-            [gifArray, 900]
+            [gifArray, 900],
+            [gifArray2,10000]
           ], // set random images from themes from unsplash || image/ gif links   with specific possibilites for mail cover
 
           // some HTML-Manipulation-Options from top to bottom
-          imageTitle: 'server-forwarder', // sets the title of the heading placed inside the image cover
-          greeting: 'Hey AquaJo,', // sets greeting, placed direct under image
-          info: 'server sent us a new message from your homepage aquajo.me', // sets the info message under the greeting
+          ejs_Logo: "", // want to show a logo img/gif/webp at the top left? set url here or leave "" or null for no logo
+          ejs_ImageTitle: 'server-forwarder', // sets the title of the heading placed inside the image cover
+          ejs_Greeting: 'Hey AquaJo,', // sets greeting, placed direct under image
+          ejs_Info: 'server sent us a new message from your homepage aquajo.me', // sets the info message under the greeting
 
           buttonLeft: ["replit.com", "https://replit.com/~"], // set button text (first item) and button href (second item), if no button wanted set one of the items to null without quotation
-          buttonRight: ["aquajo.com", "https://aquajo.me/"] // same for the right button
+          buttonRight: ["aquajo.me", "https://aquajo.me"] // same for the right button
         },
 
-        other: {
-          bumpSMTPWithMail: ["mi19hadnh912nda@byom.de", "Hi, do you like this number?: " + Math.floor(Math.random() * 912390), 43200] //  bump your smtp-provider with messages over time to keep it alive. 1. param: mail to send to, 2. param msg, 3. param bump-intervall in minutes. Dont want/ need to use it? --> Set one param to null without quotation
+
+        bumping: { // service for bumping / pinging smtp servers. Dont want to use service?, set any of the first three objects to null or set useService to false. 
+          useService: true,
+
+          toMail: process.env.TO_MAIL, //mail to send bump msg to
+          msg: "randomQuote", // message sent with bumping ("randomQuote" for new random quote each time)
+          interval: [30, 40], // bump-intervall in minutes: [min,max] range for some variability
+
+
+          unstableProvider: true, // hosting provider isn't stable long enough for your interval? example: replit.com. Set to true (Probably not working if server resets and uses first provided version to deploy)
+
+          // for the following options, IF unstableProvider is true, set nextBump.txt to 0 on each manual restart, especially if changing from stableTime to unstable and vice versa
+          stableTime: false, // unstable provider, but time-system provided is persistent? set to true, else false
+          unstableTimeInterval: 10 // no stable time? System will frequently push lasting timeout time to nextBump.txt to have a reference on system restart. Set frequency time in seconds here (for updating reference, Not interval for bumping)
         }
+
       }
     },
 
@@ -92,11 +105,11 @@ module.exports = {
     },
 
     recaptcha: {
-      useService: true,
+      useService: false,
       config: {
         recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY
       }
-    },
+    }
   }
 }
 

@@ -149,8 +149,8 @@
                                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                   <tbody>
                                     <tr>
-                                      <td style="width:100px;">
-                                        <img height="100" src="https://media0.giphy.com/media/mRqMnL2Yp4Z9apds6Q/giphy.gif?cid=ecf05e478vpgc6ke01z56iqnf28t7iugx6qxwnbcygy7qdw4&rid=giphy.gif&ct=s" style="border:0;display:block;outline:none;text-decoration:none;height:100px;width:100%;font-size:13px;" width="100" />
+                                      <td style="width:100px; <%= ejs_LogoStyle %>">
+                                        <img height="100" src=" <%= ejs_Logo %> " style="border:0;display:block;outline:none;text-decoration:none;height:100px;width:100%;font-size:13px;" width="100" />
                                       </td>
                                     </tr>
                                   </tbody>
@@ -159,7 +159,7 @@
                             </tr>
                             <tr>
                               <td align="center" style="font-size:0px;padding:0px 0px 0px 0px;word-break:break-word;">
-                                <div style="font-family:Sora,Verdana,Arial;font-size:45px;font-weight:400;letter-spacing:4px;line-height:1.8;text-align:center;color:#FFFFFF;">server-forwarder</div>
+                                <div style="font-family:Sora,Verdana,Arial;font-size:45px;font-weight:400;letter-spacing:4px;line-height:1.8;text-align:center;color:#FFFFFF;"> <%= ejs_ImageTitle %> </div>
                               </td>
                             </tr>
                           </tbody>
@@ -198,12 +198,12 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" style="font-size:0px;padding:5px 25px 0px 25px;word-break:break-word;">
-                                          <div style="font-family:Sora,Verdana,Arial;font-size:24px;font-weight:300;line-height:1.8;text-align:center;color:#000000;">Hey AquaJo,</div>
+                                          <div style="font-family:Sora,Verdana,Arial;font-size:24px;font-weight:300;line-height:1.8;text-align:center;color:#000000;"> <%= ejs_Greeting %> </div>
                                         </td>
                                       </tr>
                                       <tr>
                                         <td align="center" style="font-size:0px;padding:0px 25px 3px 25px;word-break:break-word;">
-                                          <div style="font-family:Sora,Verdana,Arial;font-size:18px;font-weight:400;line-height:1.8;text-align:center;color:#807878;">server sent us a new message from your homepage aquajo.me</div>
+                                          <div style="font-family:Sora,Verdana,Arial;font-size:18px;font-weight:400;line-height:1.8;text-align:center;color:#807878;"> <%= ejs_Info %> </div>
                                         </td>
                                       </tr>
                                       <tr>
@@ -292,8 +292,8 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                                             <tbody>
                                               <tr>
-                                                <td align="center" bgcolor="#000000" role="presentation" style="border:hidden;border-radius:4px;cursor:auto;mso-padding-alt:10px 25px 10px 25px;text-align:center;background:#000000;" valign="middle">
-                                                  <a href="https://replit.com/~" style="display:inline-block;background:#000000;color:#ffffff;font-family:Sora,Verdana,Arial;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px 10px 25px;mso-padding-alt:0px;border-radius:4px;" target="_blank"> replit.com </a>
+                                                <td align="center" bgcolor="#000000" role="presentation" style="border:hidden;border-radius:4px;cursor:auto;mso-padding-alt:10px 25px 10px 25px;text-align:center;background:#000000; <%= ejs_btn1Style %> " valign="middle">
+                                                  <a href= <%= ejs_btn1Href %> style="display:inline-block;background:#000000;color:#ffffff;font-family:Sora,Verdana,Arial;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px 10px 25px;mso-padding-alt:0px;border-radius:4px;" target="_blank"> <%= ejs_btn1Text %> </a>
                                                 </td>
                                               </tr>
                                             </tbody>
@@ -320,8 +320,8 @@
                                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                                             <tbody>
                                               <tr>
-                                                <td align="center" bgcolor="#000000" role="presentation" style="border:none;border-radius:4px;cursor:auto;mso-padding-alt:10px 25px 10px 25px;text-align:center;background:#000000;" valign="middle">
-                                                  <a href="https://aquajo.me/" style="display:inline-block;background:#000000;color:#ffffff;font-family:Sora,Verdana,Arial;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px 10px 25px;mso-padding-alt:0px;border-radius:4px;" target="_blank"> aquajo.me </a>
+                                                <td id = "btn2" align="center" bgcolor="#000000" role="presentation" style="border:none;border-radius:4px;cursor:auto;mso-padding-alt:10px 25px 10px 25px;text-align:center;background:#000000; <%= ejs_btn2Style %> " valign="middle">
+                                                  <a href= <%= ejs_btn2Href %> style="display:inline-block;background:#000000;color:#ffffff;font-family:Sora,Verdana,Arial;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px 10px 25px;mso-padding-alt:0px;border-radius:4px;" target="_blank"> <%= ejs_btn2Text %> </a>
                                                 </td>
                                               </tr>
                                             </tbody>
