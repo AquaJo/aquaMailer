@@ -10,7 +10,9 @@ module.exports = {
   // useService params use boolean (true/false). If you set it false, config class inside specific parent class wont take action 
   config: {
     server: {
-      /* OPTIONAL */
+      /* NEEDED */
+      corsWhitelist: [process.env.corsSite1, process.env.corsSite2], // set your whitelisted domains here
+      /* OPTIONAL, request limiter */
       useService: true,
       config: {
         //set max calls per user for period of time

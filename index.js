@@ -130,7 +130,7 @@ if (config.server.useService) {
 // To accept HTML form data
 app.use(express.urlencoded({ extended: false }));
 
-var whitelist = ['https://fiddle.jshell.net', 'https://aquajo.me']
+var whitelist = config.server.corsWhitelist;
 var corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
