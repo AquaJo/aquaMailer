@@ -19,7 +19,7 @@ if (config.discord.useService) {
 
 // SOME "work"-FUNCTIONS
 Array.prototype.chooseRandom = function(probabilities) {
-  info = {};
+  let info = {};
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
@@ -58,7 +58,7 @@ Array.prototype.chooseRandom = function(probabilities) {
   // end function collection
 
   let array = this;
-  arrayLength = array.length;
+  let arrayLength = array.length;
   let resIndex;
 
   if (!Array.isArray(probabilities) || (probabilities.filter(item => typeof item === 'number')).length != probabilities.length || (probabilities.filter(item => item >= 0)).length != probabilities.length) {
@@ -149,7 +149,7 @@ app.listen(port, () => {
 
 
 let heroSettings = config.email.config.receiverHTML.backgroundTopicsAndPossibilities;
-emailTemplateHeroImageUrls = [];
+let emailTemplateHeroImageUrls = [];
 let probabilitiesHeros = [];
 for (let i = 0; i < heroSettings.length; ++i) {
   emailTemplateHeroImageUrls.push(heroSettings[i][0]);
