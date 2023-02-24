@@ -46,19 +46,11 @@ In the following table, I will provide a comparison of some of the providers I h
 Overall, I can recommend Replit for a hobby project, at least if you don't need 100% uptime. This mainly because of its nice flexibility and simplicity. However, keep in mind that Discord.js may be blocked in the future, as I have experienced issues with Replit and Discord.js in the past. As of February 2023, it seems to be working fine.\
 Glitch could be an alternative too, but pinging doesn't seem to be welcomed and uptime robot doesn't work, I think.\
 Render and Cyclic can be great, less playgroundy alternatives too if you don't depend on SMTP-pinging.
+
+
 ## Config.js Documentation
-
-
-
-## Hauptkapitel
-
-### Unterkapitel 1
-
-Einige Informationen über das Unterkapitel.
-
-### Unterkapitel 2
-
-Einige weitere Informationen über das Unterkapitel.
-
-    Einrückung des Textes mit vier Leerzeichen oder einem Tab. Hier können Sie
-    weitere Details oder Beispiele zu diesem Unterkapitel hinzufügen.
+### Server
+### Email
+### SMTP - Bumping
+### Discord
+### reCAPTCHA v2
