@@ -11,6 +11,7 @@ First, you need to choose a hosting provider for your Node.js app. You can eithe
 ### Replit
 Create a node application and drag and drop the folders and files of this unzipped repo or fork this repo and upload it.\
 Server should start automatically or by clicking `run`;
+Set environment variables in the secrets tab.
 ### Glitch
 Create a node application, delete standard example files and download this repo as zip.\
 Unpack it and zip again only the files/ folders shown in this repo directly, so that if unpacked again, they are unpacked directly that not a seperate folder containing project files is given in this new zip\
@@ -23,6 +24,7 @@ rm file.zip
 refresh
 ```
 After that, your project should start.
+Set your client secrets in your .env file.
 
 ---
 
