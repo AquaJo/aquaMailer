@@ -10,9 +10,10 @@ It comes with built-in features such as email and Discord forwarding, server req
 
 ## Basic Installation
 
-This guide will walk you through setting up the project on your server and clientside without configuration.\
+Following two sections will guide you through setting up the project on your [server](#serverside-setup) and [clientside](#clientside-setup) without configuration.\
 For instructions on integrating email, Discord, reCAPTCHA, and pingig please see the [config.js documentation](#configjs-documentation) further down.
 
+## Serverside Setup
 First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a [provider specialized in hosting Node.js applications](#hosting-providers---comparison).
 ### Replit
 Create a node application and drag and drop the folders and files of this unzipped repo or upload it from github.\
@@ -49,6 +50,9 @@ If `nodemailerProject is listening at http://localhost:[xxxxx]` is being logged,
 Change the config file to fit your needs.\
 To keep it online you could use uptimerobot to "bump" it every 5 minutes (replit and render). Therefore use http(s) and the link provided for your project-entry-point: `[https://your-domain.tld]/public/index.html`.
 
+## Clientside Setup
+After you created your server, you can now integrate the contact form in your webpage.\
+For that, take a look at the [contactForm folder](contactForm)
 
 ## Hosting Providers - Comparison
 In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity and may not paint the whole picture.
