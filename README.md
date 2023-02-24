@@ -23,7 +23,7 @@ unzip file.zip -d .
 rm file.zip
 refresh
 ```
-After that, your project should start.
+After that, your project should start.\
 Set your client secrets in your .env file.
 
 ---
