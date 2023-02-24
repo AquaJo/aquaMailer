@@ -34,6 +34,13 @@ refresh
 After that, your project should start.\
 Set your client secrets in the .env file.
 
+### Render and Cyclic
+Authorize Render or Cyclic to access your private repo or use this one or a fork for deploying.\
+In Render, while setting up your "web service",\
+set `Root Directory` to `.` , `Runtime` to `Node`, `Build Command` to `npm install` and `Start Command` to `node index.js`\
+Service should finish auto deploying after some seconds or minutes.\
+Environment variables can be set in the `Environment` tab in Render or the `Variables` tab in cyclic.
+
 ---
 
 
