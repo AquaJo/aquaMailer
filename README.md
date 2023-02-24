@@ -122,6 +122,8 @@ If you only want a minimal example of implementing, not a styled template with b
   ```
 </details>
 
+Set variables indicated by [ ] in html to your key / domain.
+
 
 
 ## Hosting Providers - Comparison
