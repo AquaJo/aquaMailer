@@ -30,7 +30,7 @@ After that, your project should start.
 
 If `nodemailerProject is listening at http://localhost:[xxxxx]` is being logged, your server is successfully running.\
 Change the config file to fit your needs.\
-To keep it online you could use uptimerobot to "bump" it every 5 minutes. Therefore use http(s) and the link u can see in your webview like this: `[https://your-domain.tld]/public/index.html`.
+To keep it online you could use uptimerobot to "bump" it every 5 minutes (replit and render). Therefore use http(s) and the link provided for your project-entry-point: `[https://your-domain.tld]/public/index.html`.
 
 
 ## Hosting Providers - Comparison
