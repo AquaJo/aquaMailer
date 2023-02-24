@@ -52,7 +52,77 @@ To keep it online you could use uptimerobot to "bump" it every 5 minutes (replit
 
 ## Clientside Setup
 After you created your server, you can now integrate the contact form in your webpage.\
-For that, take a look at the [contactForm folder](http://stackoverflow.com){:target="_blank"}
+For that, take a look at the [contactForm folder](contactForm) (opens as _self) for a template and its js component.\
+Notice, there are some *dependencies* you definetly need for proper working.\
+You need my [js - component](contactForm/script.js) and therefore vex dialog (could be easily changed to alert) and also reCAPTCHA script in case.\
+If you only want a minimal example of implementing, not a styled template with bootstrap as dependency:
+
+<details>
+  <summary>Contact Form HTML - no reCAPTCHA v2</summary>
+  
+```html
+<head>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+  <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css" />
+</head>
+
+<div>
+  <form id="contactForm" action="[https://YOURSERVERURL.tld]/submit" method="POST" class="contact-form">
+    <div>
+      <input type="text" name="from_name" id="from_name" placeholder="(User-)Name">
+    </div>
+    <div>
+      <input type="email" name="fromMail_name" id="fromMail_name" placeholder="Email">
+    </div>
+    <div>
+      <textarea id="message" type="text" name="message" rows="5" cols="30" placeholder="Message" required></textarea>
+    </div>
+    <div class="submit-button-wrapper">
+      <input id="contactSend_btn" type="submit" value="Send">
+    </div>
+  </form>
+</div>
+```
+</details>
+
+<details>
+  <summary>Contact Form HTML - reCAPTCHA v2</summary>
+  
+  ```html
+  <head>
+  <script src="script.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js"></script>
+  <script>vex.defaultOptions.className = 'vex-theme-default'</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.min.css" />
+</head>
+
+<div>
+  <form id="contactForm" action="[https://YOURSERVERURL.tld]/submit" method="POST" class="contact-form">
+    <div>
+      <input type="text" name="from_name" id="from_name" placeholder="(User-)Name">
+    </div>
+    <div>
+      <input type="email" name="fromMail_name" id="fromMail_name" placeholder="Email">
+    </div>
+    <div>
+      <textarea id="message" type="text" name="message" rows="5" cols="30" placeholder="Message" required></textarea>
+    </div>
+    <div class="submit-button-wrapper">
+    <div class="g-recaptcha" data-sitekey="[YOUR_RECAPTCHA_SITEKEY]"></div>
+      <br>
+      <input id="contactSend_btn" type="submit" value="Send">
+    </div>
+  </form>
+</div>
+  ```
+</details>
+
+
 
 ## Hosting Providers - Comparison
 In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity and may not paint the whole picture.
