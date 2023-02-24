@@ -9,7 +9,7 @@ It comes with built-in features such as email and Discord forwarding, server req
 ## Basic Installation
 
 This guide will walk you through setting up the project on your server and clientside without configuration.\
-For instructions on integrating email, Discord, reCAPTCHA, and pingig please see the [config.js documentation further down](#configjs-documentation).
+For instructions on integrating email, Discord, reCAPTCHA, and pingig please see the [config.js documentation](#configjs-documentation) further down.
 
 First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a [provider specialized in hosting Node.js applications](#hosting-providers---comparison).
 ### Replit
