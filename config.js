@@ -77,7 +77,7 @@ module.exports = {
 
 
         bumping: { // service for bumping / pinging smtp servers. Dont want to use service?, set any of the first three objects to null or set useService to false. 
-          useService: true,
+          useService: false,
 
           toMail: process.env.TO_MAIL, //mail to send bump msg to
           msg: "randomQuote", // message sent with bumping ("randomQuote" for new random quote each time)
