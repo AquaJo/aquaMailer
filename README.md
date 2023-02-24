@@ -51,8 +51,7 @@ To keep it online you could use uptimerobot to "bump" it every 5 minutes (replit
 
 
 ## Hosting Providers - Comparison
-In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity, with Replit, for example, being tested for a longer period than others, resulting in downtime that may also occur with other providers, such as Glitch.
-
+In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity and may not paint the whole picture.
 | Provider | Advantages | Disadvantages |
 | --- | --- | --- |
 | Replit | Free option<br>Intuitive and simple interface<br>Integrated free realtime shell and IDE<br>Fast build and working Node.js version| Server resetting, sleeping, and downtime<br>Discord service may be unavailable in the future |
