@@ -6,9 +6,9 @@ AquaMailer is a self-adjusting service that allows you to forward messages from 
 
 This guide will walk you through setting up the project on your server, including the most basic features such as the email service. For instructions on integrating Discord and reCAPTCHA, please see the documentation further down.
 
-First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a provider specializing in Node.js applications. 
+First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a [provider specialized in hosting Node.js applications](#hosting-providers---comparison). 
 
-### Hosting Providers
+## Hosting Providers - Comparison
 In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity, with Replit, for example, being tested for a longer period than others, resulting in downtime that may also occur with other providers, such as Glitch.
 
 | Provider | Advantages | Disadvantages |
