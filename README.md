@@ -122,7 +122,7 @@ If you only want a minimal example of implementing, not a styled template with b
   ```
 </details>
 
-Set variables indicated by [ ] in html to your key / domain.
+Set variables indicated by [ ] in html to your key / server url.
 
 
 
@@ -130,8 +130,8 @@ Set variables indicated by [ ] in html to your key / domain.
 In the following table, I will provide a comparison of some of the providers I have tested, some of which offer a free option. However, keep in mind that my testing varied in length and intensity and may not paint the whole picture.
 | Provider | Advantages | Disadvantages |
 | --- | --- | --- |
-| Replit | Free option<br>Intuitive and simple interface<br>Integrated free realtime shell and IDE<br>Fast build and working Node.js version| Server resetting, sleeping, and downtime<br>Discord service may be unavailable in the future |
-| Glitch | Free option<br>Intuitive and simple interface<br>Integrated free realtime shell and IDE<br>Fast build and working Node.js version (after auto uptdate via package.json) | No implemented folder upload feature, requires zipping and unzipping<br>I think uptime robot isn't working and pinging not welcomed<br>Server sleeping |
+| Replit | Free option<br>Intuitive and simple interface<br>Integrated free realtime shell and IDE<br>Fast build and working Node.js version<br>Github deploying possible| Server resetting, sleeping, and downtime<br>Discord service may be unavailable in the future |
+| Glitch | Free option<br>Intuitive and simple interface<br>Integrated free realtime shell and IDE<br>Fast build and working Node.js version (after auto update via package.json)<br>Github deploying possible| No implemented folder upload feature, requires zipping and unzipping<br>I think uptime robot isn't working and pinging not welcomed<br>Server sleeping |
 | Render | Free option<br>Github deploying<br>Custom server-location|Less flexibility --> no (free) shell and realtime IDE<br>Longer build time<br>Limited build minutes<br>Deploying from scratch in intervals --> SMTP-bumping not working yet<br>Weird behaviour on deploying |
 | Cyclic | Free option<br>Github deploying<br>Immediately available  --> no pinging required (?)<br>Relatively fast building | SMTP-bumping not working on unstable provider set to true (not sure if it is stable, especially on longer intervals)<br>Discord feature not fully working |
 ### Summary
