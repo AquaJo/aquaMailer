@@ -52,7 +52,7 @@ To keep it online you could use uptimerobot to "bump" it every 5 minutes (replit
 
 ## Clientside Setup
 After you created your server, you can now integrate the contact form in your webpage.\
-For that, take a look at the [contactForm folder](contactForm) (opens as _self) for a template and its js component.\
+For that, take a look at the [contactForm folder](contactForm) (links open as _self) for a template and its js component.\
 Notice, there are some *dependencies* you definetly need for proper working.\
 You need my [js - component](contactForm/script.js) and therefore vex dialog (could be easily changed to alert) and also reCAPTCHA script in case.\
 If you only want a minimal example of implementing, not a styled template with bootstrap as dependency:
@@ -122,8 +122,8 @@ If you only want a minimal example of implementing, not a styled template with b
   ```
 </details>
 
-Set variables indicated by [ ] in html to your key / server url.
-
+Set variables `[YOUR_RECAPTCHA_SITEKEY]` & `[https://YOURSERVERURL.tld]` in html to your key / server url.\
+To enable the contact form, set up either the [email](#email) or [discord](#discord) service as all services are turned off by default.
 
 
 ## Hosting Providers - Comparison
@@ -141,6 +141,8 @@ Render and Cyclic can be great, less playgroundy alternatives too if you don't d
 
 
 ## Config.js Documentation
+The following sections will guide you through setting up the different features aquaMailer provides you.\
+Because of the requirement of configuration and assurance of customization, all services are turned off by default.
 ### Server
 ### Email
 ### SMTP - Bumping
