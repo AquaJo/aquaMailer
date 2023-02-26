@@ -1,7 +1,7 @@
 
 <p style = "line-height:1" align="center">
 
-<img src="https://user-images.githubusercontent.com/84229101/221287362-206f6e1f-6f0f-42cf-a9f0-cf59c6e722da.svg#gh-dark-mode-only"  width="300">
+<img src="https://user-images.githubusercontent.com/84229101/221438806-2f586fac-f5a6-462c-b110-b8fb2d27da1b.svg#gh-dark-mode-only"  width="300">
 <img src="https://user-images.githubusercontent.com/84229101/221295203-dd89d8ee-92ac-43f9-b27b-7d065127789c.svg#gh-light-mode-only"  width="300">
 </p>
 
