@@ -2,7 +2,7 @@
 <p style = "line-height:1" align="center">
 
 <img src="https://user-images.githubusercontent.com/84229101/221438806-2f586fac-f5a6-462c-b110-b8fb2d27da1b.svg#gh-dark-mode-only"  width="300">
-<img src="https://user-images.githubusercontent.com/84229101/221295203-dd89d8ee-92ac-43f9-b27b-7d065127789c.svg#gh-light-mode-only"  width="300">
+<img src="https://user-images.githubusercontent.com/84229101/221439211-ff175105-4685-4d45-a71a-5efe4557c5cf.svg#gh-light-mode-only"  width="300">
 </p>
 
 aquaMailer is a customizable service that allows you to forward messages from the contact form on your client-accessible website.\
