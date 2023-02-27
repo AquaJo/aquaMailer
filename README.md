@@ -17,13 +17,13 @@ For instructions on integrating email, Discord, reCAPTCHA, and pingig please see
 First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a [provider specialized in hosting Node.js applications](#hosting-providers---comparison).
 ### Replit
 Create a node application and drag and drop the folders and files of this unzipped repo or upload it from github.\
-Server should start automatically or by clicking `run`\
+Server should start automatically or by clicking `run`.\
 Set environment variables in the secrets tab.
 ### Glitch
 Create a node application.\
 Then upload from github or\
 delete standard example files and download this repo as zip.\
-Unpack it and zip again only the files/ folders shown in this repo directly, so that if unpacked again, they are unpacked directly that not a seperate folder containing project files is given in this new zip\
+Unpack it and zip again only the files/ folders shown in this repo directly, so that if unpacked again, they are unpacked directly that not a seperate folder containing project files is given in this new zip.\
 Now drag and drop this zip into your glitch project and copy its url.\
 Run following the following commands, while using your zip-url:
 ```bash
@@ -142,9 +142,83 @@ Render and Cyclic can be great, less playgroundy alternatives too if you don't d
 
 ## Config.js Documentation
 The following sections will guide you through setting up the different features aquaMailer provides you.\
-Because of the requirement of configuration and assurance of customization, all services are turned off by default.
+Because of the requirement of configuration and assurance of customization, all services are turned off by default.\
+Configs are made in [config.js](config.js). You only have to modify objects and turn services on/off.
 ### Server
+The service `server` includes all configurations that include restrictions on accessing your server.
+```js
+server: {
+      /* NEEDED */
+      corsWhitelist: [process.env.corsSite1, process.env.corsSite2], // set your whitelisted domains here
+      /* OPTIONAL, request limiter */
+      useService: true,
+      config: {
+        //set max calls per user for period of time
+        requestPeriod: 15 * 60 * 1000, // --> 15 minutes
+        maxRequestsInPeriod: 20
+      }
+    }
+```
+`corsWhitelist` is a needed option. Set all domains that should be able to access your server as rest-api here as array (also if only one domain).
+
+
+Set `useService` to true if you want to include a server-call limiter per user.\
+`requestPeriod` sets the interval time the user can do x requests in ms. To set minutes, like already done, multiply by 60*1000.\
+`maxRequestsInPeriod` sets requests/calls per user allowed in interval set in `requestPeriod`.
 ### Email
+The `Email` service is the main feature aquaMailer offers.\
+It allows forwarding your contact form messages to multiple mails (main), html - configuration and smtp-server - pinging.\
+`useService` will  require you to only config `main` and `receiverHTML`.
+The following three sections will guide you through setting up named components.
+#### Main
+`main` sets the absolute required informations to run email - sending using nodemailer.\
+This includes setting transporter(s) (emails to send from), receiver mails and a from tag.
+
+```js
+main: {
+          transporterObjects: [
+            {
+              host: "smtp.zoho.eu",
+              secure: true,
+              port: 465,
+              auth: {
+                user: process.env.USER_zoho, // "user@zohomail.eu"
+                pass: process.env.PW_zoho
+              }
+            }
+          ],
+          fromTag: "forwarding-service", // additional sender tag
+          receiverMails: [ // mails that receive contact form messages
+            process.env.TO_MAIL,
+            //,process.env.secondMail
+          ]
+        }
+```
+In `transporterObjects` you can declare multiple nodemailer's so called transporters in an array.\
+A transporter defines the main information about an SMTP-access linked to your email account.\
+With succeeded auth to your account, this makes programmatical sending mails via nodemailer possible.\
+You can declare several transporters by appending the array, while the "priority" sinks the higher the index.\
+That means the first transporter given in this array is always used first when sending mails, the others act as *fallbacks* and aren't used till an error occurs on the upper transporter (--> limit exceeded / false auth ....).\
+There are two ways to declare a transporter:
+1. nodemailer provides presets for some smtp-services, so you don't have to worry about ports, hosts & other params other than auth. These can be set in the transporter object via `service: "[someService]"`.
+2. set host, port and any other parameter by yourself, like it's done in this code snippet.\
+Keep in mind this can also be required if you use a service nodemailer has a preset for, e.g. using an eu - server like in this example.\
+
+*Some advice to `auth`:*\
+`user` probably is your mail\
+`pass` should in most cases be your mail - passwords, but it can also be a separate smtp - password (e.g. when using mail.ee)\
+Not all services allow simple or free access to their smtp - servers or want you to use them programmatically.\
+afaik, Gmail requires 2fa and less secure app settings to work properly.\
+O-Auth may also be an option for Gmail, but for non published apps tokens will refresh after some time.
+
+`fromTag` sets an extra name for your sender - address. Set it to "" to just use the normal mail.
+
+`receiverMails` sets all the mails you want to send contact - form messages to.\
+Mails are always declared as string and array items in `receiverMails`, also if there's only 1 receiver.
+
+#### Receiver-HTML
+#### Bumping
+
 ### SMTP - Bumping
 ### Discord
 ### reCAPTCHA v2
