@@ -202,14 +202,14 @@ That means the first transporter given in this array is always used first when s
 There are two ways to declare a transporter:
 1. nodemailer provides presets for some smtp-services, so you don't have to worry about ports, hosts & other params other than auth. These can be set in the transporter object via `service: "[someService]"`.
 2. set host, port and any other parameter by yourself, like it's done in this code snippet.\
-Keep in mind this can also be required if you use a service nodemailer has a preset for, e.g. using an eu - server like in this example.\
+Keep in mind this can also be required if you use a service nodemailer has a preset for, e.g. using an eu - server like in the upper example.
 
 *Some advice to `auth`:*\
 `user` probably is your mail\
 `pass` should in most cases be your mail - passwords, but it can also be a separate smtp - password (e.g. when using mail.ee)\
 Not all services allow simple or free access to their smtp - servers or want you to use them programmatically.\
 afaik, Gmail requires 2fa and less secure app settings to work properly.\
-O-Auth may also be an option for Gmail, but for non published apps tokens will refresh after some time.
+O-Auth may also be an option for Gmail, but me myself had problems with refreshing tokens.
 
 `fromTag` sets an extra name for your sender - address. Set it to "" to just use the normal mail.
 
