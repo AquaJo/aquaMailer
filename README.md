@@ -217,33 +217,70 @@ O-Auth may also be an option for Gmail, but me myself had problems with refreshi
 Mails are always declared as string and array items in `receiverMails`, also if there's only 1 receiver.
 
 #### Receiver-HTML
+This object can manipulate the html / ejs set in [index.ejs](emailTemplate/index.ejs) in which the contact - message (and more) is embedded by default.\
+
 ```js
 receiverHTML: {
           backgroundTopicsAndPossibilities: [
             ['https://source.unsplash.com/random/?futuristic', 45],
             ['https://source.unsplash.com/random/?nature', 26],
-            ['https://source.unsplash.com/random/?abstract', 19],
-            ['https://source.unsplash.com/random/?universe', 10],
-            /* 
-            use your own image/gif links by using another array inside first index of selector-arrays
-            (for giphy-gif link scraping feel free visiting my other project: gifGrabber - https://github.com/AquaJo/GifGrabber // direct site release - https://aquajo.me/GifGrabber/)
-            */
-            [gifArray, 900],
-            [gifArray2,10000]
-          ], // set random images from themes from unsplash || image/ gif links   with specific possibilites for mail cover
+            [gifArray, 24],
+            [imgArray, 12]
+          ], // set random themes || image/ gif links with specific possibilites for mail cover
 
           // some HTML-Manipulation-Options from top to bottom
-          ejs_Logo: "", // want to show a logo img/gif/webp at the top left? set url here or leave "" or null for no logo
+          ejs_Logo: "", // want to show a logo at the top left? set url here or leave "" or null for no logo
           ejs_ImageTitle: 'server-forwarder', // sets the title of the heading placed inside the image cover
           ejs_Greeting: 'Hey AquaJo,', // sets greeting, placed direct under image
           ejs_Info: 'server sent us a new message from your homepage aquajo.me', // sets the info message under the greeting
 
-          buttonLeft: ["replit.com", "https://replit.com/~"], // set button text (first item) and button href (second item), if no button wanted set one of the items to null without quotation
+          buttonLeft: ["replit.com", "https://replit.com/~"], // set button text and button href || both null
           buttonRight: ["aquajo.me", "https://aquajo.me"] // same for the right button
         }
 ```
+
+`backgroundTopicsAndPossibilities` sets possible images/gifs you want to use as background-cover.\
+&nbsp;Each items contains another array.\
+&nbsp;&nbsp;&nbsp;&nbsp;Each of this array has two items.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;First item:\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can be an unsplash link with `?[tag]` for finding a random image from a topic. See code snippet.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can be another *array* containing images. [Want to extract many gifs from giphy?](https://github.com/AquaJo/GifGrabber)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Second item:\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sets the possibility for using defined image set / theme (all possibilities combined as 100%)
+
+`ejs_Logo` sets the logo url placed on the top left, 'hide' it by setting "" or null.\
+`ejs_ImageTitl`sets a header placed in the cover - image.\
+`ejs_Greeting` sets a greeting placed underneath the header.\
+`ejs_Info` sets an info - message underneath greeting.
+
+`buttonLeft` / `buttonLeft` shows a button at the bottom left / right.\
+- First item sets href / link redirected on button click (_blank)
+- Second item sets button text
+
+You can hide it by setting both items to null.
+&nbsp;\
+&nbsp;\
+If you don't want to use given html - template, you can set it to something you like and then include some ejs-vars like:
+
+`*` set in receiverHTML
+| ejs-var | returns |
+| --- | --- |
+| ejs_Message | message |
+| ejs_From | user - stated name |
+| ejs_FromMail | user - stated mail |
+| ejs_BackgroundImg | resulting image from given array and possibilites|
+| ejs_ImageTitle | title on cover image, like a header * |
+| ejs_Greeting | greeting * |
+| ejs_Info | the info followed after greeting * |
+| ejs_btn1Href | left button href (link) * |
+| ejs_btn1Text | left button text * |
+| ejs_btn2Href | right button href (link) * |
+| ejs_btn2Text | right button text * |
+| ejs_btn1Style | style for hiding left button in case|
+| ejs_btn2Style | style for hiding right button in case|
+| ejs_Logo | logo url or "" or null * |
+
 #### Bumping
 
-### SMTP - Bumping
 ### Discord
 ### reCAPTCHA v2
