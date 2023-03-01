@@ -281,6 +281,22 @@ If you don't want to use given html - template, you can set it to something you 
 | ejs_Logo | logo url or "" or null * |
 
 #### Bumping
+``` js
+bumping: {
+          useService: false,
 
+
+          toMail: process.env.TO_MAIL, // mail to send bump msg to
+          msg: "randomQuote", // msg sent with bumping || "randomQuote"
+          interval: [30, 40], // min-max interval bumping
+
+
+          unstableProvider: true, // refreshs/resets?
+
+          // if unstableProvider === true
+          stableTime: false, // stable time system?
+          unstableTimeInterval: 10 // else, frequency store in seconds
+        }
+```
 ### Discord
 ### reCAPTCHA v2
