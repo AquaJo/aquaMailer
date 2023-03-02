@@ -281,6 +281,8 @@ If you don't want to use given html - template, you can set it to something you 
 | ejs_Logo | logo url or "" or null * |
 
 #### Bumping
+Activating this seperate service inside activated parent email - feature, makes automted smtp - server - pinging in intervals possible.
+
 ``` js
 bumping: {
           useService: false,
@@ -298,5 +300,17 @@ bumping: {
           unstableTimeInterval: 10 // else, frequency store in seconds
         }
 ```
+
+`toMail` sets the *one* mail you want to send the mails to on pinging while using (all of) your given transporters.\
+Currently only one toMail is allowed (don't initialize an array) and if pinging activated, all transporters are used for pinging at the same time.
+
+`msg` sets the message set on pinging.\
+You can also set it to `"randomQuote"` to generate a random quote from [here](https://gist.githubusercontent.com/awran5/355643af99164a61ae0f95c84206d151/raw/c62636e8eef7e73540fa04b67f753ca9b95ee21e/quotes-api.js). (I didn't read through all of them)
+
+`interval` sets the min (first item) and max (second item) time (random) between pinging processes in minutes.\
+If the server - time - system changes over time and isn't reliable set `stableTime` to `false`, else `true`.\
+If `stableTime` is `false`, then set an interval time in `unstableTimeInterval` in seconds.\
+This will count down every x - seconds (those you set) in [nextBump.txt]() (which is automatically set to your assigned value in `interval` each ping time).\
+When nextBump.txt hits 0 it will bump your smtp - services again. Be sure to set it to 0 if you changed interval times.
 ### Discord
 ### reCAPTCHA v2
