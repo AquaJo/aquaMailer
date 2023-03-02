@@ -148,7 +148,15 @@ Render and Cyclic can be great, less playgroundy alternatives too if you don't d
 The following sections will guide you through setting up the different features aquaMailer provides you.\
 Because of the requirement of configuration and assurance of customization, all services are turned off by default.\
 Configs are made in [config.js](config.js). You only have to modify objects and turn services on/off.
+
+<details>
+
+<summary>
+
 ### Server
+
+</summary>
+
 The service `server` includes some configurations for restrictioning server - access.
 ```js
 server: {
@@ -169,7 +177,17 @@ server: {
 Set `useService` to true if you want to include a server-call limiter per user.\
 `requestPeriod` sets the interval time the user can do x requests in ms. To set minutes, like already done, multiply by 60*1000.\
 `maxRequestsInPeriod` sets requests/calls per user allowed in interval set in `requestPeriod`.
+</details>
+
+
+<details>
+
+<summary>
+
 ### Email
+
+</summary>
+
 The `Email` service is the main feature aquaMailer offers.\
 It allows forwarding your contact form messages to multiple mails (main), html - configuration and smtp-server - pinging.\
 `useService` will  require you to only config `main` and `receiverHTML`.
@@ -316,7 +334,18 @@ If the server - time - system changes over time and isn't reliable set `stableTi
 If `stableTime` is `false`, then set an interval time in `unstableTimeInterval` in seconds.\
 This will count down every x - seconds (those you set) in nextBump.txt (which is automatically set to your assigned value in `interval` each ping time).\
 When nextBump.txt hits 0 it will bump your smtp - services again. Be sure to set it to 0 if you changed interval times.
+
+</details>
+
+
+<details>
+
+<summary>
+
 ### Discord
+
+</summary>
+
 Enabling and configuring this service will send notifications to selected discord users on your server via private messaging from a bot.
 ``` js
 discord: {
@@ -352,7 +381,17 @@ Commands (not using /commands yet):
 - !dm
 - !ping
 
+</details>
+
+
+<details>
+
+<summary>
+
 ### reCAPTCHA v2
+
+</summary>
+
 If you want to require your users to validate themselves as human using Google reCAPTCHA v2 before they can send a message, you should enable this service.
 ``` js
 recaptcha: {
@@ -368,4 +407,7 @@ Also add domains the contact form is hosted on to have allowance to your reCAPTC
 
 After that being done, you should now receive a key pair, a `secret key` and a `site key`.\
 Set `recaptchaSecretKey` to the created `secret key` and clientside (in the html) set `[YOUR_RECAPTCHA_SITEKEY]` to your `site key`.
+
+</details>
+
 
