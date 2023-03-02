@@ -346,4 +346,10 @@ Set as many users you like to get notified on new contact form messages in `dmUs
 Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards`to `false`, else `true`.
 
 It's intended to use the bot only in one server.
+
+Commands (not using /commands yet):
+- !version
+- !dm
+- !ping
+
 ### reCAPTCHA v2
