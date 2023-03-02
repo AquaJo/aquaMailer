@@ -367,5 +367,5 @@ Choose `I'm not a robot Checkbox` - option in the dropdown.\
 Also add domains the contact form is hosted on to have allowance to your reCAPTCHA v2 service.
 
 After that being done, you now should receive a key pair, a `secret key` and a `site key`.\
-Set `recaptchaSecretKey` to the created `secret key` and clientside (in the html) set `site key` to 
+Set `recaptchaSecretKey` to the created `secret key` and clientside (in the html) set `[YOUR_RECAPTCHA_SITEKEY]` to your `site key`.
 
