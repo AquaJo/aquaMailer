@@ -344,4 +344,6 @@ Then just copy `Generated Url` and invite your bot.
 Set as many users you like to get notified on new contact form messages in `dmUsers`.\
 `dmMessageInfo` is your configurable part of the bot's dm (sent first). Set it to anything you want.\
 Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards`to `false`, else `true`.
+
+Its intended to use the bot only in one server.
 ### reCAPTCHA v2
