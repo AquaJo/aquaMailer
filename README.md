@@ -13,6 +13,10 @@ It comes with built-in features such as email and Discord forwarding, server req
 Following two sections will guide you through setting up the project on your [server](#serverside-setup) and [clientside](#clientside-setup) without configuration.\
 For instructions on integrating email, Discord, reCAPTCHA, and pingig please see the [config.js documentation](#configjs-documentation) further down.
 
+## Advice For Keeping Secrets
+I *strongly* encourage you to use process.env (environment variables) to store private information on hosting services like replit or glitch because everyone can see your code using free tier (don't use the npm package in this usecase!)\
+On glitch create an .env file and press it.\
+On replit head over to the `Secrets` - tab.
 ## Serverside Setup
 First, you need to choose a hosting provider for your Node.js app. You can either set up your own VPS for hosting Node.js and have full control, or choose a [provider specialized in hosting Node.js applications](#hosting-providers---comparison).
 ### Replit
@@ -313,4 +317,31 @@ If `stableTime` is `false`, then set an interval time in `unstableTimeInterval` 
 This will count down every x - seconds (those you set) in nextBump.txt (which is automatically set to your assigned value in `interval` each ping time).\
 When nextBump.txt hits 0 it will bump your smtp - services again. Be sure to set it to 0 if you changed interval times.
 ### Discord
+Enabling and configuring this service will send notifications to selected discord users on your server via private messaging from a bot.
+``` js
+discord: {
+      useService: true,
+      config: {
+        dcToken: process.env.DC_TOKEN, // bot token from discord dev portal
+        dmUsers: [
+          'User#9153'
+        ], // users to send msg's to in the same server
+        dmMessageInfo: "You got a new message from your homepage.",
+        sendMsgAfterwards: true
+      }
+    }
+```
+You need to create a discord bot first.
+
+For that go to the [discord devloper portal](https://discord.com/developers/applications) and create a new `application`.\
+Then go to the `Bot`-Panel and create a bot.\
+Scroll down to `Privileged Gateway Intents` and enable `Server Members Intent`and `Message Content Intent`.\
+Click `View Token`and copy it. Then assign this sensitive token to `dcToken` in config.js.\
+Head over to the developer portal again and expand `OAuth2`, click `URL Generator` in the dropdown.\
+In the `Scopes` - table select `bot`.\
+Then just copy `Generated Url` and invite your bot.
+
+Set as many users you like to get notified on new contact form messages in `dmUsers`.\
+`dmMessageInfo` is your configurable part of the bot's dm (sent first). Set it to anything you want.\
+Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards`to `false`, else `true`.
 ### reCAPTCHA v2
