@@ -310,7 +310,7 @@ You can also set it to `"randomQuote"` to generate a random quote from [here](ht
 `interval` sets the min (first item) and max (second item) time (random) between pinging processes in minutes.\
 If the server - time - system changes over time and isn't reliable set `stableTime` to `false`, else `true`.\
 If `stableTime` is `false`, then set an interval time in `unstableTimeInterval` in seconds.\
-This will count down every x - seconds (those you set) in [nextBump.txt](.) (which is automatically set to your assigned value in `interval` each ping time).\
+This will count down every x - seconds (those you set) in nextBump.txt (which is automatically set to your assigned value in `interval` each ping time).\
 When nextBump.txt hits 0 it will bump your smtp - services again. Be sure to set it to 0 if you changed interval times.
 ### Discord
 ### reCAPTCHA v2
