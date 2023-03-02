@@ -363,7 +363,7 @@ recaptcha: {
     }
 ```
 For being able to use this feature please [register a google reCAPTCHA v2 public/ private key pair](https://www.google.com/recaptcha/admin/create).\
-Choose `I'm not a robot Checkbox` - option in the dropdown.\
+Choose `"I'm not a robot" Checkbox` - option in the dropdown.\
 Also add domains the contact form is hosted on to have allowance to your reCAPTCHA v2 service.
 
 After that being done, you should now receive a key pair, a `secret key` and a `site key`.\
