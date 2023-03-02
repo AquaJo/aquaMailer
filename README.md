@@ -149,7 +149,7 @@ The following sections will guide you through setting up the different features 
 Because of the requirement of configuration and assurance of customization, all services are turned off by default.\
 Configs are made in [config.js](config.js). You only have to modify objects and turn services on/off.
 ### Server
-The service `server` includes all configurations that include restrictions on accessing your server.
+The service `server` includes some configurations for restrictioning server - access.
 ```js
 server: {
       /* NEEDED */
@@ -221,7 +221,7 @@ O-Auth may also be an option for Gmail, but me myself had problems with refreshi
 Mails are always declared as string and array items in `receiverMails`, also if there's only 1 receiver.
 
 #### Receiver-HTML
-This object can manipulate the html / ejs set in [index.ejs](emailTemplate/index.ejs) in which the contact - message (and more) is embedded by default.\
+This object can manipulate the html / ejs set in [index.ejs](emailTemplate/index.ejs) in which the contact - message (and more) is embedded by default.
 
 ```js
 receiverHTML: {
@@ -257,7 +257,7 @@ receiverHTML: {
 `ejs_Greeting` sets a greeting placed underneath the header.\
 `ejs_Info` sets an info - message underneath greeting.
 
-`buttonLeft` / `buttonLeft` shows a button at the bottom left / right.\
+`buttonLeft` / `buttonLeft` shows a button at the bottom left / right.
 - First item sets href / link redirected on button click (_blank)
 - Second item sets button text
 
@@ -353,3 +353,19 @@ Commands (not using /commands yet):
 - !ping
 
 ### reCAPTCHA v2
+If you want to require your users to validate themselves as human using Google reCAPTCHA v2 before they can send a message, you should enable this service.
+``` js
+recaptcha: {
+      useService: false,
+      config: {
+        recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY
+      }
+    }
+```
+For being able to use this feature please [register a google reCAPTCHA v2 public/ private key pair](https://www.google.com/recaptcha/admin/create).\
+Choose `I'm not a robot Checkbox` - option in the dropdown.\
+Also add domains the contact form is hosted on to have allowance to your reCAPTCHA v2 service.
+
+After that being done, you now should receive a key pair, a `secret key` and a `site key`.\
+Set `recaptchaSecretKey` to the created `secret key` and clientside (in the html) set `site key` to 
+
