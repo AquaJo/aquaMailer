@@ -5,7 +5,7 @@
 <img src="https://user-images.githubusercontent.com/84229101/221439211-ff175105-4685-4d45-a71a-5efe4557c5cf.svg#gh-light-mode-only"  width="300">
 </p>
 
-aquaMailer is a customizable service that allows you to forward messages from the contact form on your client-accessible website.\
+aquaMailer is a small customizable service that allows you to forward messages from the contact form on your client-accessible website.\
 It comes with built-in features such as email and Discord forwarding, server request limiting, Google v2 reCAPTCHA validation and SMTP-server pinging.
 
 ## Basic Installation
