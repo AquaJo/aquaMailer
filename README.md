@@ -253,8 +253,8 @@ receiverHTML: {
           // some HTML-Manipulation-Options from top to bottom
           ejs_Logo: "", // want to show a logo at the top left? set url here or leave "" or null for no logo
           ejs_ImageTitle: 'server-forwarder', // sets the title of the heading placed inside the image cover
-          ejs_Greeting: 'Hey AquaJo,', // sets greeting, placed direct under image
-          ejs_Info: 'server sent us a new message from your homepage aquajo.me', // sets the info message under the greeting
+          ejs_Greeting: 'Hey there,', // sets greeting, placed direct under image
+          ejs_Info: 'server sent us a new message from your homepage', // sets the info message under the greeting
 
           buttonLeft: ["replit.com", "https://replit.com/~"], // set button text and button href || both null
           buttonRight: ["aquajo.me", "https://aquajo.me"] // same for the right button
