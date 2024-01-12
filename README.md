@@ -370,6 +370,7 @@ In the `Scopes` - table select `bot`.\
 Then just copy `Generated Url` and invite your bot.
 
 Set as many users you like to get notified on new contact form messages in `dmUsers`.\
+Please notice, the username and discriminator pair e.g. "User#1234" might be just a simple identifier-name if you adapted to discord's new update.\
 `dmMessageInfo` is your configurable part of the bot's dm (sent first). Set it to anything you want.\
 Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards` to `false`, else `true`.
 
