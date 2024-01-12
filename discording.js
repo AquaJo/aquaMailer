@@ -45,6 +45,9 @@ client.once('ready', async () => {
   } catch (error) {
     console.error(error);
   }
+  const Guilds = client.guilds.cache.map(guild => guild.id);
+  const guild = client.guilds.cache.get(Guilds[0]);  // (...)  lazy ...
+  const members = await guild.members.fetch(); // fills cache ig
 });
 
 client.on('messageCreate', message => {
@@ -80,6 +83,7 @@ client.on('rateLimit', (rateLimitInfo) => {
 });
 
 function sendMsg(ids, msg) {
+  console.log(client.users.cache.map(u => u.tag));
   for (let i = 0; i < ids.length; ++i) {
     const user = client.users.cache.find(u => u.tag === ids[i]);
     user.send(msg);
