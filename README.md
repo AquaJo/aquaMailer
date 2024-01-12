@@ -5,9 +5,8 @@
 <img src="https://user-images.githubusercontent.com/84229101/221439211-ff175105-4685-4d45-a71a-5efe4557c5cf.svg#gh-light-mode-only"  width="300">
 </p>
 
-aquaMailer is a customizable service that allows you to forward messages from the contact form on your client-accessible website.\
-It comes with features such as email and Discord forwarding, server request limiting, Google v2 reCAPTCHA validation and SMTP-server pinging.
-
+aquaMailer is a customizable service that bundels dependencies like nodemailer and discordjs, allowing you to forward messages from the contact form on your client-accessible website to you via multiple ways and options.\
+It comes with features such as email and Discord forwarding, server request limiting, Google v2 reCAPTCHA validation and SMTP-server pinging. 
 ## Basic Installation
 
 Following two sections will guide you through setting up the project on your [server](#serverside-setup) and [clientside](#clientside-setup) without configuration.\
@@ -193,7 +192,7 @@ It allows forwarding your contact form messages to multiple mails (main), html -
 `useService` will  require you to only config `main` and `receiverHTML`.
 The following three sections will guide you through setting up named components.
 #### Main
-`main` sets the absolute required informations to run email - sending using nodemailer.\
+`main` sets the absolute required information to run email - sending using nodemailer.\
 This includes setting transporter(s) (emails to send from), receiver mails and a from tag.
 
 ```js
@@ -307,7 +306,7 @@ Activating this seperate service inside activated parent email - feature, makes 
 
 ``` js
 bumping: {
-          useService: false,
+          useService: true,
 
 
           toMail: process.env.TO_MAIL, // mail to send bump msg to
@@ -372,7 +371,7 @@ Then just copy `Generated Url` and invite your bot.
 
 Set as many users you like to get notified on new contact form messages in `dmUsers`.\
 `dmMessageInfo` is your configurable part of the bot's dm (sent first). Set it to anything you want.\
-Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards`to `false`, else `true`.
+Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMsgAfterwards` to `false`, else `true`.
 
 It's intended to use the bot only in one server.
 
@@ -395,7 +394,7 @@ Commands (not using /commands yet):
 If you want to require your users to validate themselves as human using Google reCAPTCHA v2 before they can send a message, you should enable this service.
 ``` js
 recaptcha: {
-      useService: false,
+      useService: true,
       config: {
         recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY
       }
@@ -409,5 +408,4 @@ After that being done, you should now receive a key pair, a `secret key` and a `
 Set `recaptchaSecretKey` to the created `secret key` and clientside (in the html) set `[YOUR_RECAPTCHA_SITEKEY]` to your `site key`.
 
 </details>
-
 
