@@ -376,7 +376,7 @@ Just want to notify named `dmUsers`, don't reveal the whole message? Set `sendMs
 
 It's intended to use the bot only in one server.
 
-Commands (not using /commands yet):
+Commands (or their slash-commands-equivalent (/version, ...)):
 - !version
 - !dm
 - !ping
